@@ -63,7 +63,7 @@ $(function() {
   // Select SVG for manipulation
   
   d3.csv("data/professordata.csv", function(error, data) {
-    var xScale, yScale, currentData;
+    var xScale, yScale;
     // Convert strings to numbers.
     data.forEach(function(d) {
       d.Sal2011 = +d.Sal2011;
@@ -89,26 +89,29 @@ $(function() {
   })
   
   //console.log(barNums);
-  var filterData = function(year) {
-    bar1 = data.filter(function(d){
+  var filterData = function(year, school) {
+    tempData = data.filter(function (d) {
+    return d.Agency_Title == school;
+    })
+    bar1 = tempData.filter(function(d){
       return d[year] > 0 && d[year] <= 40000;
     })
-    bar2 = data.filter(function(d){
+    bar2 = tempData.filter(function(d){
       return d[year] > 40000 && d[year] <= 80000;
     })
-    bar3 = data.filter(function(d){
+    bar3 = tempData.filter(function(d){
       return d[year] > 80000 && d[year] <= 120000;
     })
-    bar4 = data.filter(function(d){
+    bar4 = tempData.filter(function(d){
       return d[year] > 120000 && d[year] <= 160000;
     })
-    bar5 = data.filter(function(d){
+    bar5 = tempData.filter(function(d){
       return d[year] > 160000;
     })
     barNums = [bar1.length, bar2.length, bar3.length, bar4.length, bar5.length];
   }
   
-  filterData(year);
+  filterData(year, school);
   console.log(bar1.length);
   console.log(barNums);
   console.log(d3.min(barNums));
@@ -153,7 +156,7 @@ var setScales = function(data) {
   var yMin =d3.min(barNums);
   var yMax =d3.max(barNums);
 
-  console.log(bar1)
+  console.log(bar1.length)
   console.log(barNums)
   console.log(yMin)
   console.log(yMax)
@@ -243,7 +246,7 @@ var setAxes = function() {
 
 			// Use the .enter() method to get your entering elements, and assign initial positions
 			bars.enter().append('rect')
-				.attr('x', function(d){return xScale(d)})
+				.attr('x', 0)
 				.attr('y', height)
 				.attr('height', 0)
 				.attr('width', xScale.rangeBand())
@@ -256,16 +259,46 @@ var setAxes = function() {
 			// Transition properties of the update selection
 			bars.transition()
 				.delay(function(d,i){return i*50})
-				.attr('x', function(d){return xScale(d)})
+				.attr('x', function(d,i){return 30 + i*168 - 6*i})
 				.attr('y', function(d){return yScale(d)})
 				.attr('height', function(d) {return height - yScale(d)})
 				.attr('width', xScale.rangeBand())
+                .attr('fill', "teal")
 				.attr('title', function(d) {return d});
 		}
+        
+        $("input").on('change', function() {
+			// Get value, determine if it is the sex or type controller
+			var val = $(this).id();
+            console.log(val)
+			var isSchool = $(this).id;
+			if(isSchool) sex = val;
+			else type = val;
 
+			// Filter data, update chart
+			filterData();
+			draw(data);
+		});
+        
     // Filter data to the current settings then draw
 		//filterData()
 		draw(data)
+
+})});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -448,5 +481,3 @@ var setAxes = function() {
 
   // }
   //draw(d3.range(domain[0], domain[1] + 1000, 1000))
-
-})});
