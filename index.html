@@ -5,11 +5,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>INFO 474 Data Exploration Tool</title>
-  <script src="https://code.jquery.com/jquery.min.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
   <link href="css/main.css" rel="stylesheet" />
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
@@ -18,36 +22,36 @@
       
       
       <div id='button'>
-            <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-primary">
-                <input value="University of Washington" class="school" type="radio" autocomplete="off">UW
+            <div class="btn-group" id="list1" data-toggle="buttons">
+            <label class="btn btn-primary active">
+                <input value="University of Washington" class="school" name="school" type="radio" autocomplete="off" checked>UW
             </label>
             <label class="btn btn-primary">
-                <input value="Washington State University" class="school" type="radio" autocomplete="off">WSU
+                <input value="Washington State University" class="school" name="school" type="radio" autocomplete="off">WSU
             </label>
             <label class="btn btn-primary">
-                <input value="Western Washington University" class="school" type="radio" autocomplete="off">WWU
+                <input value="Western Washington University" class="school" name="school" type="radio" autocomplete="off">WWU
             </label>
             <label class="btn btn-primary">
-                <input value="Eastern Washington University" class="school" type="radio" autocomplete="off">EWU
+                <input value="Eastern Washington University" class="school" name="school" type="radio" autocomplete="off">EWU
             </label>
             <label class="btn btn-primary">
-                <input value="Central Washington University" class="school" type="radio" autocomplete="off">CWU
+                <input value="Central Washington University" class="school" name="school" type="radio" autocomplete="off">CWU
             </label>
             </div>
 
-            <div class="btn-group" data-toggle="buttons">
+            <div class="btn-group" id="list2" data-toggle="buttons">
+            <label class="btn btn-primary active">
+                <input class='year' value="Sal2011" name="year" type="radio" autocomplete="off" checked>2011
+            </label>
             <label class="btn btn-primary">
-                <input class='year' value="Sal2011" type="radio" autocomplete="off">2011
+                <input class='year' value="Sal2012" name="year" type="radio" autocomplete="off">2012
             </label>
-            <label class="btn btn-primary active">
-                <input class='year' value="Sal2012" type="radio" autocomplete="off">2012
+            <label class="btn btn-primary">
+                <input class='year' value="Sal2013" name="year" type="radio" autocomplete="off">2013
             </label>
-            <label class="btn btn-primary active">
-                <input class='year' value="Sal2013" type="radio" autocomplete="off">2013
-            </label>
-            <label class="btn btn-primary active">
-                <input class='year' value="Sal2014" type="radio" autocomplete="off">2014
+            <label class="btn btn-primary">
+                <input class='year' value="Sal2014" name="year" type="radio" autocomplete="off">2014
             </label>
             </div>   
         </div>    

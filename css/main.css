@@ -12,6 +12,11 @@ p {
   margin-bottom: 0px;
 }
 
+div[role='tooltip'] {
+    font-size: 20px; 
+    
+}
+
 
 .instructions > ul > li {
   border-bottom:1px solid #D3d3d3;
