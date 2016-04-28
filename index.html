@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>INFO 474 Data Exploration Tool</title>
+  <script src="https://code.jquery.com/jquery.min.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
   <link href="css/main.css" rel="stylesheet" />
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.js"></script>
@@ -16,39 +17,43 @@
       <h1>INFO 474 Data Exploration Tool</h1>
       
       
-      
-		<div class="btn-group" data-toggle="buttons">
-		  <label class="btn btn-primary">
-		    <id="University of Washington">UW
-		  </label>
-		  <label class="btn btn-primary active">
-		    <id="Washington State University" checked>WSU
-		  </label>
-          <label class="btn btn-primary active">
-		    <id="Western Washington University" checked>WWU
-		  </label>
-          <label class="btn btn-primary active">
-		    <id="Eastern Washington University" checked>EWU
-		  </label>
-          <label class="btn btn-primary active">
-		    <id="Central Washington University" checked>CWU
-		  </label>
-		</div>
+      <div id='button'>
+            <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input value="University of Washington" class="school" type="radio" autocomplete="off">UW
+            </label>
+            <label class="btn btn-primary">
+                <input value="Washington State University" class="school" type="radio" autocomplete="off">WSU
+            </label>
+            <label class="btn btn-primary">
+                <input value="Western Washington University" class="school" type="radio" autocomplete="off">WWU
+            </label>
+            <label class="btn btn-primary">
+                <input value="Eastern Washington University" class="school" type="radio" autocomplete="off">EWU
+            </label>
+            <label class="btn btn-primary">
+                <input value="Central Washington University" class="school" type="radio" autocomplete="off">CWU
+            </label>
+            </div>
 
-		<div class="btn-group" data-toggle="buttons">
-		  <label class="btn btn-primary">
-		    <id="Sal2011" autocomplete="off">2011
-		  </label>
-		  <label class="btn btn-primary active">
-		    <id="Sal2012" autocomplete="off" checked>2012
-		  </label>
-          <label class="btn btn-primary active">
-		    <id="Sal2013" autocomplete="off" checked>2013
-		  </label>
-          <label class="btn btn-primary active">
-		    <id="Sal2014" autocomplete="off" checked>2014
-		  </label>
-		</div>      
+            <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary">
+                <input class='year' value="Sal2011" type="radio" autocomplete="off">2011
+            </label>
+            <label class="btn btn-primary active">
+                <input class='year' value="Sal2012" type="radio" autocomplete="off">2012
+            </label>
+            <label class="btn btn-primary active">
+                <input class='year' value="Sal2013" type="radio" autocomplete="off">2013
+            </label>
+            <label class="btn btn-primary active">
+                <input class='year' value="Sal2014" type="radio" autocomplete="off">2014
+            </label>
+            </div>   
+        </div>    
+        <p>Professor Salary at Washington Universities</p>
+        <p id='school-name'></p>
+        <p id='year-num'></p>
     
      
     

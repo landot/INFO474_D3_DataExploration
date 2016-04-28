@@ -52,10 +52,20 @@
 //var bottomRange = [0, width];
 //var middleRange = [width/2 - 20, width/2 + 20];
 //var colorRange = ['red', 'blue'];
+var schoolColors = {
+    'University of Washington' : 'purple',
+    'Washington State University' : 'red',
+    'Central Washington University': 'red',
+    'Eastern Washington University': 'red',
+    'Western Washington University': 'blue'
+}
 
+console.log(schoolColors);
+console.log(schoolColors['University of Washington'])
 
 var year = 'Sal2011';
 var school = 'University of Washington';
+var schoolCol = schoolColors[school];
 var bar1, bar2, bar3, bar4, bar5, barNums;
 
 // You'll have to wait for you page to load to assign events to the elements created in your index.html file
@@ -75,11 +85,11 @@ $(function() {
     var margin = {
 			left:70,
 			bottom:100,
-			top:50,
+			top:10,
 			right:50,
 		};
     
-    var height = 800 - margin.top - margin.bottom;
+    var height = 600 - margin.top - margin.bottom;
     var width = 960 - margin.left - margin.right;
     
   
@@ -117,7 +127,7 @@ $(function() {
   console.log(d3.min(barNums));
   
   var svg = d3.select('#my-svg')
-            .attr('height', 800)
+            .attr('height', 600)
             .attr('width', 960);
 
   var g = svg.append('g')
@@ -137,12 +147,12 @@ $(function() {
 
   // Append text to label the y axis (don't specify the text yet)
   var xAxisText = svg.append('text')
-      .attr('transform', 'translate(' + (margin.left + width/2) + ',' + (height + margin.top + 40) + ')')
+      .attr('transform', 'translate(' + (margin.left + width/2 -60) + ',' + (height + margin.top + 50) + ')')
       .attr('class', 'title')
 
   // Append text to label the y axis (don't specify the text yet)
   var yAxisText = svg.append('text')
-      .attr('transform', 'translate(' + (margin.left - 40) + ',' + (margin.top + height/2) + ') rotate(-90)')
+      .attr('transform', 'translate(' + (margin.left - 50) + ',' + (margin.top + height/2 + 50) + ') rotate(-90)')
       .attr('class', 'title')
 
 //function for setting scales
@@ -185,8 +195,8 @@ var setAxes = function() {
 			yAxisLabel.transition().duration(1500).call(yAxis);
 
 			// Update labels
-			xAxisText.text('Salary (USD)')
-			yAxisText.text('Frequency')
+			xAxisText.text('Salary Range (USD)')
+			yAxisText.text('Number of Professors')
 }
 
     // // Write a function to filter down the data to the current sex and type
@@ -263,27 +273,40 @@ var setAxes = function() {
 				.attr('y', function(d){return yScale(d)})
 				.attr('height', function(d) {return height - yScale(d)})
 				.attr('width', xScale.rangeBand())
-                .attr('fill', "teal")
+                .attr('fill', schoolCol)
 				.attr('title', function(d) {return d});
 		}
         
-        $("input").on('change', function() {
+        $("input").on('click', function() {
 			// Get value, determine if it is the sex or type controller
-			var val = $(this).id();
-            console.log(val)
-			var isSchool = $(this).id;
-			if(isSchool) sex = val;
-			else type = val;
-
+			var val = $(this).val();
+            console.log('clicking ' + val);
+			var isSchool = $(this).hasClass('school');
+			if(isSchool) {
+                document.getElementById("school-name").innerHTML = 'School: ' + val;  
+                school = val;
+                schoolCol = schoolColors[school]        
+            }
+			else {
+                document.getElementById("year-num").innerHTML = 'Year: ' + val.substr(3);  
+                year = val;
+            }
 			// Filter data, update chart
-			filterData();
+			filterData(year, school);
 			draw(data);
 		});
-        
+        document.getElementById("school-name").innerHTML = 'School: ' + school; 
+        document.getElementById("year-num").innerHTML = 'Year: ' + year.substr(3);   
     // Filter data to the current settings then draw
 		//filterData()
 		draw(data)
-
+        
+        
+        
+        $("rect").tooltip({
+			'container': 'body',
+			'placement': 'top'
+		});
 })});
 
 

@@ -1,8 +1,17 @@
 /* Main CSS file */
 
 p {
-  opacity:.7
+    font-size: 30px;
+    text-align: center;
 }
+
+#school-name, #year-num {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 0px;
+}
+
 
 .instructions > ul > li {
   border-bottom:1px solid #D3d3d3;
@@ -10,6 +19,13 @@ p {
   padding:10px;
 }
 
+h1 {
+    text-align: center;
+}
+
+#button {
+    text-align: center;
+}
 
 .axis path,
 .axis line {
