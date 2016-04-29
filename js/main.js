@@ -1,5 +1,3 @@
-// Main JavaScript File
-
 
 
 var schoolColors = {
@@ -10,9 +8,7 @@ var schoolColors = {
     'Western Washington University': 'blue'
 }
 
-console.log(schoolColors);
-console.log(schoolColors['University of Washington'])
-
+//vars needed for remaking graph
 var year = 'Sal2011';
 var school = 'University of Washington';
 var schoolCol = schoolColors[school];
@@ -20,8 +16,7 @@ var bar1, bar2, bar3, bar4, bar5, barNums;
 
 // You'll have to wait for you page to load to assign events to the elements created in your index.html file
 $(function() {
-  // Select SVG for manipulation
-  
+  //load data
   d3.csv("data/professordata.csv", function(error, data) {
     var xScale, yScale;
     // Convert strings to numbers.
@@ -43,12 +38,12 @@ $(function() {
     var width = 960 - margin.left - margin.right;
     
   
-  // Write a function to filter down the data to the current sex and type
+  // Write a function to filter data for only job titles with Professor in it
   data = data.filter(function (d) {
     return d.job_title.indexOf("PROFESSOR") >= 0 ;
   })
   
-  //console.log(barNums);
+  //filters the data based on year and university
   var filterData = function(year, school) {
     tempData = data.filter(function (d) {
     return d.Agency_Title == school;
@@ -71,11 +66,11 @@ $(function() {
     barNums = [bar1.length, bar2.length, bar3.length, bar4.length, bar5.length];
   }
   
+  //first filter for page load
   filterData(year, school);
-  console.log(bar1.length);
-  console.log(barNums);
-  console.log(d3.min(barNums));
-  
+
+
+  //creating svg and appending g  
   var svg = d3.select('#my-svg')
             .attr('height', 600)
             .attr('width', 960);
@@ -176,6 +171,7 @@ var setAxes = function() {
 			// Transition properties of the update selection
 			bars.transition()
 				.delay(function(d,i){return i*50})
+                //NOTE: bars had trouble positioning x-axis, so I calculated proper spacing by hand
 				.attr('x', function(d,i){return 30 + i*168 - 6*i})
 				.attr('y', function(d){return yScale(d)})
 				.attr('height', function(d) {return height - yScale(d)})
@@ -183,16 +179,10 @@ var setAxes = function() {
                 .attr('fill', schoolCol)
 				.attr('title', function(d) {return d});
             
-            bars.append('text')
-                .attr("x", function(d,i){return 30 + i*168 - 6*i})
-                .attr("y", function(d){return yScale(d)})
-                .attr("dy", ".35em")
-                .style("font-size","34px")
-                .text(function(d) { return d; });
 		}
         
+        //changes filter variables based on button clicks
         $("input").on('click', function() {
-			// Get value, determine if it is the sex or type controller
 			var val = $(this).val();
             console.log('clicking ' + val);
 			var isSchool = $(this).hasClass('school');
@@ -205,30 +195,29 @@ var setAxes = function() {
                 document.getElementById("year-num").innerHTML = 'Year: ' + val.substr(3);  
                 year = val;
             }
-            $(this).addClass("active").siblings().removeClass("active");
 			// Filter data, update chart
 			filterData(year, school);
 			draw(data);
 		});
         
+        //changes which button is highlighted based on clicks
         $("#list1 .btn").click(function(list){
             $("#list1 .btn").removeClass('active');
             $(this).toggleClass('active'); 
         });
-        
         $("#list2 .btn").click(function(){
             $("#list2 .btn").removeClass('active');
             $(this).toggleClass('active'); 
         });
       
-        
+        //changes values on page on current university and year
         document.getElementById("school-name").innerHTML = 'School: ' + school; 
         document.getElementById("year-num").innerHTML = 'Year: ' + year.substr(3);   
-        
-        
-        //create the chart
+              
+        //create the chart (first time)
 		draw(data)   
         
+        //tooltips for the bar values (boxes are slightly off)
         $("rect").tooltip({
 			'container': 'body',
 			'placement': 'left',
