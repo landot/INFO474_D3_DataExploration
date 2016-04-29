@@ -1,0 +1,49 @@
+/* Main CSS file */
+
+p {
+    font-size: 30px;
+    text-align: center;
+}
+
+#school-name, #year-num {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 0px;
+}
+
+div[role='tooltip'] {
+    font-size: 20px; 
+    
+}
+
+
+.instructions > ul > li {
+  border-bottom:1px solid #D3d3d3;
+  list-style-type: none;
+  padding:10px;
+}
+
+h1 {
+    text-align: center;
+}
+
+#button {
+    text-align: center;
+}
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: #d3d3d3;
+	shape-rendering: crispEdges;
+}
+
+.mid-label {
+  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+}
+
+.axis-label {
+  font-size:20px;
+  text-anchor:middle;
+}
